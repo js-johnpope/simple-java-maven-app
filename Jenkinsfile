@@ -12,7 +12,7 @@ pipeline {
         stage('Test') {
 
             steps {
-                withMaven('nonprod-maven') {
+                withMaven(maven: 'nonprod-maven') {
                     sh 'mvn test'
                 }
             }
