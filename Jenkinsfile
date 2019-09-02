@@ -1,16 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
+    agent any
 
     stages {
         stage('Build') {
             steps {
-                withMaven(maven : 'nonprod-maven')
-                sh 'mvn -B -DskipTests clean package'
+                container('maven') {
+                    sh 'mvn -B -DskipTests clean package'
+                }
+                // withMaven(maven : 'nonprod-maven')
+                // sh 'mvn -B -DskipTests clean package'
             }
         }
     }
